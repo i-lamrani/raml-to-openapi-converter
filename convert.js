@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Transform the OpenAPI schema to fix validation issues while preserving data structure
  * @param {Object} openApiDoc OpenAPI document
@@ -121,11 +123,60 @@ function transformOpenApiSchema(openApiDoc) {
   const os = require('os');
   
   /**
+   * Display help message
+   */
+  function displayHelp() {
+    console.log(`
+RAML to OpenAPI Converter
+=========================
+
+Usage:
+  raml-to-openapi <raml-file> <output-file> [options]
+
+Arguments:
+  raml-file             Path to the input RAML file (local or URL)
+  output-file           Path to the output OpenAPI file (default: openapi.yaml)
+
+Options:
+  --json                Output in JSON format instead of YAML
+  --debug               Debug mode (preserves temporary files)
+  --endpoints=<list>    Filter specified endpoints (comma-separated list)
+  --no-cleanup          Disable automatic schema transformation
+  --help                Display this help message
+
+Examples:
+  raml-to-openapi api.raml openapi.yaml
+  raml-to-openapi api.raml openapi.json --json
+  raml-to-openapi https://example.com/api.raml openapi.yaml
+  raml-to-openapi api.raml openapi.yaml --endpoints=/users,/products
+  raml-to-openapi api.raml openapi.yaml --no-cleanup
+    `);
+    process.exit(0);
+  }
+
+  /**
    * Create configuration from command line arguments
    * @param {string[]} args Command line arguments
    * @returns {Object} Configuration
    */
   function createConfig(args = process.argv.slice(2)) {
+    // Show help if requested
+    if (args.includes('--help') || args.includes('-h')) {
+      displayHelp();
+    }
+
+    // Handle version flag
+    if (args.includes('--version') || args.includes('-v')) {
+      const packageJson = require('./package.json');
+      console.log(`raml-to-openapi-converter v${packageJson.version}`);
+      process.exit(0);
+    }
+
+    // If no arguments provided, show help
+    if (args.length === 0) {
+      displayHelp();
+    }
+
     return {
       ramlFilePath: args[0] || 'api.raml',
       outputFilePath: args[1] || 'openapi.yaml',

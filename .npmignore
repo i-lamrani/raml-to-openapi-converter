@@ -1,0 +1,51 @@
+# Git files
+.git
+.gitignore
+
+# Temp files
+raml-temp-*/
+
+# Tests
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Development configs
+.eslintrc
+.prettierrc
+.nvmrc
+.travis.yml
+.github/
+
+# Editor configs
+.vscode/
+.idea/
+*.sublime-*
+.editorconfig
+
+# Build tools
+webpack.config.js
+rollup.config.js
+gulpfile.js
+
+# Logs
+logs/
+*.log
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories (comment out if you want to include node_modules in your package)
+# node_modules/
+
+# Documentation source files (only if you want to keep them separate)
+docs/
+examples/

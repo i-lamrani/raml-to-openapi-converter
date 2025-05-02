@@ -10,19 +10,56 @@ This module converts RAML specifications to OpenAPI 3.0 format, preserving the o
 - Endpoint filtering by path
 - Intelligent schema transformation to ensure OpenAPI compatibility
 - YAML or JSON output
+- Command-line interface for easy usage
 
 ## Installation
+
+### Local Installation
 
 ```bash
 npm install raml-to-openapi-converter
 ```
 
-## Usage
-
-### Command Line
+### Global Installation
 
 ```bash
-node convert.js path/to/api.raml path/to/output.yaml [options]
+npm install -g raml-to-openapi-converter
+```
+
+## Usage
+
+### Command Line (Global Installation)
+
+When installed globally, you can use the converter directly from your terminal:
+
+```bash
+raml-to-openapi <raml-file> <output-file> [options]
+```
+
+Display help:
+
+```bash
+raml-to-openapi --help
+```
+
+Check version:
+
+```bash
+raml-to-openapi --version
+```
+
+### Command Line (Local Installation)
+
+If installed locally, use it with Node.js:
+
+```bash
+npx raml-to-openapi <raml-file> <output-file> [options]
+```
+
+or:
+
+```bash
+node node_modules/raml-to-openapi-converter/convert.js <raml-file> <output-file> [options]
 ```
 
 ### Options
@@ -31,21 +68,23 @@ node convert.js path/to/api.raml path/to/output.yaml [options]
 - `--debug`: Debug mode (preserves temporary files)
 - `--endpoints=endpoint1,endpoint2,...`: Filter specified endpoints
 - `--no-cleanup`: Disable automatic schema transformation
+- `--help`: Display help information
+- `--version`: Display version information
 
 ### Examples
 
 ```bash
-# Simple conversion
-node convert.js api.raml openapi.yaml
+# Simple conversion (global installation)
+raml-to-openapi api.raml openapi.yaml
 
 # Conversion with endpoint filtering
-node convert.js api.raml openapi.yaml --endpoints=/users,/products
+raml-to-openapi api.raml openapi.yaml --endpoints=/users,/products
 
 # Conversion from URL
-node convert.js https://example.com/api.raml openapi.json --json
+raml-to-openapi https://example.com/api.raml openapi.json --json
 
 # Conversion without schema transformation
-node convert.js api.raml openapi.yaml --no-cleanup
+raml-to-openapi api.raml openapi.yaml --no-cleanup
 ```
 
 ### As a Module
